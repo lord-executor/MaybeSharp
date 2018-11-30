@@ -27,6 +27,6 @@ namespace MaybeSharp
 		/// Unwraps and returns the underlying value, bringing it back into the world of nulls.
 		/// </summary>
 		/// <returns>The underlying value if this is a "Just" or null if this is a "Nothing"</returns>
-		T Extract();
+		T Extract(T defaultValue = null);
 	}
 }

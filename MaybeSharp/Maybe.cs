@@ -66,7 +66,7 @@ namespace MaybeSharp
 				just(_value);
 			}
 
-			public T Extract()
+			public T Extract(T defaultValue)
 			{
 				return _value;
 			}
@@ -92,9 +92,9 @@ namespace MaybeSharp
 				nothing();
 			}
 
-			public T Extract()
+			public T Extract(T defaultValue)
 			{
-				return null;
+				return defaultValue;
 			}
 
 			/// <summary>
