@@ -2,16 +2,18 @@
 
 namespace MaybeSharp.UnitTests
 {
-	class DoSentry<T>
+	class MapSentry<T>
+		where T : class
 	{
 		public bool JustCalled { get; private set; }
 		public bool NothingCalled { get; private set; }
 		public T JustObject { get; private set; }
 
-		public void JustAction(T obj)
+		public IMaybe<T> JustAction(T obj)
 		{
 			JustObject = obj;
 			JustCalled = true;
+			return Maybe.Of(obj);
 		}
 
 		public void VerifyJustCalled(T obj)
@@ -27,15 +29,21 @@ namespace MaybeSharp.UnitTests
 			JustObject.Should().BeNull();
 		}
 
-		public void NothingAction()
+		public IMaybe<T> NothingAction()
 		{
 			NothingCalled = true;
+			return Maybe.Nothing<T>();
 		}
 
 		public void VerifyNothingCalled()
 		{
 			VerifyJustNotCalled();
 			NothingCalled.Should().BeTrue();
+		}
+
+		public void VerifyNothingNotCalled()
+		{
+			NothingCalled.Should().BeFalse();
 		}
 	}
 }
