@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <PackageProjectUrl>https://github.com/lord-executor/MaybeSharp</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/lord-executor/MaybeSharp/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/lord-executor/MaybeSharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Company />
+    <Authors>Lukas Angerer</Authors>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
 </Project>

@@ -13,12 +13,15 @@ namespace MaybeSharp
 	public static class Maybe
 	{
 		/// <summary>
-		/// The unit function that injects a value from an underlying type to a value in the Maybe monad
+		/// The unit function that injects a value from an underlying type to a value in the Maybe monad. Also often
+		/// referred to as "type converter" or "return". In OO-speak, this is the constructor of the Monad.
 		/// </summary>
 		public static IMaybe<T> Of<T>(T value)
 			where T : class
 		{
-			// this is the _only_ place that actually checks for NULL in the Maybe monad construction
+			// this is one of only two places that actually checks for NULL in the Maybe monad construction.
+			// the other one is in the JustImpl constructor and is mostly a safety precaution against misuses
+			// of the Just method.
 			return value == null ? (IMaybe<T>)NothingImpl<T>.Inst : new JustImpl<T>(value);
 		}
 
@@ -35,7 +38,7 @@ namespace MaybeSharp
 		}
 
 		/// <summary>
-		/// Creates a "Nothing" object.
+		/// Creates a "Nothing" object of the underlying type <typeparamref name="T"/>.
 		/// </summary>
 		public static IMaybe<T> Nothing<T>()
 			where T : class
@@ -56,9 +59,9 @@ namespace MaybeSharp
 				_value = value ?? throw new ArgumentException("You cannot create a 'Just' with null. Use Maybe.Of if you don't know whether the value is null or not.", nameof(value));
 			}
 
-			public IMaybe<TResult> Bind<TResult>(Func<T, IMaybe<TResult>> func) where TResult : class
+			public IMaybe<TResult> Map<TResult>(Func<T, IMaybe<TResult>> just, Func<IMaybe<TResult>> nothing) where TResult : class
 			{
-				return func(_value);
+				return just(_value);
 			}
 
 			public void Do(Action<T> just, Action nothing)
@@ -82,9 +85,9 @@ namespace MaybeSharp
 			{
 			}
 
-			public IMaybe<TResult> Bind<TResult>(Func<T, IMaybe<TResult>> func) where TResult : class
+			public IMaybe<TResult> Map<TResult>(Func<T, IMaybe<TResult>> just, Func<IMaybe<TResult>> nothing) where TResult : class
 			{
-				return NothingImpl<TResult>.Inst;
+				return nothing();
 			}
 
 			public void Do(Action<T> just, Action nothing)
