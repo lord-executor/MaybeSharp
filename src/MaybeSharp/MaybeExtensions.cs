@@ -55,6 +55,28 @@ namespace MaybeSharp
 		}
 
 		/// <summary>
+		/// Maps any "Nothing" to the given <paramref name="defaultValue"/>.
+		/// </summary>
+		/// <returns>A new <see cref="IMaybe{T}"/> where "Nothing" has been mapped to a default value</returns>
+		public static IMaybe<T> Default<T>(this IMaybe<T> maybe, IMaybe<T> defaultValue)
+			where T : class
+		{
+			return maybe.Map(v => Maybe.Of(v), () => defaultValue);
+		}
+
+		/// <summary>
+		/// Maps any "Nothing" to the given <paramref name="defaultValue"/>.
+		/// 
+		/// A non-monadic default value is converted to a monadic type.
+		/// </summary>
+		/// <returns>A new <see cref="IMaybe{T}"/> where "Nothing" has been mapped to a default value</returns>
+		public static IMaybe<T> Default<T>(this IMaybe<T> maybe, T defaultValue)
+			where T : class
+		{
+			return maybe.Default(Maybe.Of(defaultValue));
+		}
+
+		/// <summary>
 		/// The Do method is the Maybe Monad equivalent of an if-else statement. It relies on side-effects of the given
 		/// <paramref name="just"/> and <paramref name="nothing"/> actions and is a concession to an OO language where
 		/// side-effects are omnipresent. It works just like the <see cref="IMaybe{T}.Map{TResult}(Func{T, IMaybe{TResult}}, Func{IMaybe{TResult}})"/>
