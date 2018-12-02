@@ -4,6 +4,6 @@ dotnet: 2.1.500
 solution: src/MaybeSharp.sln
 script:
   - dotnet restore src/MaybeSharp.sln
-  - dotnet build src/MaybeSharp.sln
-  - dotnet test src/MaybeSharp.sln
-  - dotnet test src/MaybeSharp.sln /p:CollectCoverage=true /p:Include="[MaybeSharp]*"
+  - dotnet build src/MaybeSharp.sln -f netcoreapp2.1
+  - dotnet test src/MaybeSharp.sln -f netcoreapp2.1
+  - dotnet test src/MaybeSharp.sln -f netcoreapp2.1 /p:CollectCoverage=true /p:Include="[MaybeSharp]*"
