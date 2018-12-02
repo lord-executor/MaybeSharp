@@ -6,3 +6,4 @@ script:
   - dotnet restore src/MaybeSharp.sln
   - dotnet build src/MaybeSharp.sln
   - dotnet test src/MaybeSharp.sln
+  - dotnet test src/MaybeSharp.sln /p:CollectCoverage=true /p:Include="[MaybeSharp]*"
