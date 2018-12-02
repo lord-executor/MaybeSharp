@@ -9,11 +9,16 @@ namespace MaybeSharp.UnitTests
 		public bool NothingCalled { get; private set; }
 		public T JustObject { get; private set; }
 
-		public IMaybe<T> JustAction(T obj)
+		public T JustActionDegenerate(T obj)
 		{
 			JustObject = obj;
 			JustCalled = true;
-			return Maybe.Of(obj);
+			return obj;
+		}
+
+		public IMaybe<T> JustAction(T obj)
+		{
+			return Maybe.Of(JustActionDegenerate(obj));
 		}
 
 		public void VerifyJustCalled(T obj)
@@ -29,10 +34,15 @@ namespace MaybeSharp.UnitTests
 			JustObject.Should().BeNull();
 		}
 
-		public IMaybe<T> NothingAction()
+		public T NothingActionDegenerate()
 		{
 			NothingCalled = true;
-			return Maybe.Nothing<T>();
+			return null;
+		}
+
+		public IMaybe<T> NothingAction()
+		{
+			return Maybe.Of(NothingActionDegenerate());
 		}
 
 		public void VerifyNothingCalled()
