@@ -73,6 +73,11 @@ namespace MaybeSharp
 			{
 				return _value;
 			}
+
+			public override string ToString()
+			{
+				return $"Just<{typeof(T).Name}> \"{_value}\"";
+			}
 		}
 
 		/// <summary>
@@ -98,6 +103,11 @@ namespace MaybeSharp
 			public T Extract(T defaultValue)
 			{
 				return defaultValue;
+			}
+
+			public override string ToString()
+			{
+				return $"Nothing<{typeof(T).Name}>";
 			}
 
 			/// <summary>

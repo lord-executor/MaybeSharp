@@ -8,5 +8,17 @@ namespace MaybeSharp.UnitTests
 	{
 		public string Name { get; } = "DemoType";
 		public object Optional { get; }
+
+		public DemoType() { }
+
+		public DemoType(string name)
+		{
+			Name = name;
+		}
+
+		public override string ToString()
+		{
+			return Name;
+		}
 	}
 }
