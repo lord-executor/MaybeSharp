@@ -59,14 +59,14 @@ namespace MaybeSharp
 				_value = value ?? throw new ArgumentException("You cannot create a 'Just' with null. Use Maybe.Of if you don't know whether the value is null or not.", nameof(value));
 			}
 
-			public IMaybe<TResult> Map<TResult>(Func<T, IMaybe<TResult>> just, Func<IMaybe<TResult>> nothing) where TResult : class
+			public IMaybe<TResult> Bind<TResult>(Func<T, IMaybe<TResult>> just) where TResult : class
 			{
 				return just(_value);
 			}
 
-			public void Do(Action<T> just, Action nothing)
+			public IMaybe<T> Default(Func<IMaybe<T>> defaultValue)
 			{
-				just(_value);
+				return this;
 			}
 
 			public T Extract(T defaultValue)
@@ -85,14 +85,14 @@ namespace MaybeSharp
 			{
 			}
 
-			public IMaybe<TResult> Map<TResult>(Func<T, IMaybe<TResult>> just, Func<IMaybe<TResult>> nothing) where TResult : class
+			public IMaybe<TResult> Bind<TResult>(Func<T, IMaybe<TResult>> just) where TResult : class
 			{
-				return nothing();
+				return Nothing<TResult>();
 			}
 
-			public void Do(Action<T> just, Action nothing)
+			public IMaybe<T> Default(Func<IMaybe<T>> defaultValue)
 			{
-				nothing();
+				return defaultValue();
 			}
 
 			public T Extract(T defaultValue)

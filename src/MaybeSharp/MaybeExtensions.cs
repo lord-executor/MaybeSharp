@@ -13,6 +13,20 @@ namespace MaybeSharp
 		/// or <paramref name="nothing"/> to that current value and returns the resulting IMaybe.
 		/// The <paramref name="just"/> function is only called if the current instance has a value, otherwise <paramref name="nothing"/>
 		/// is called.
+		/// </summary>
+		/// <returns>The result of applying <paramref name="just"/> to the unwrapped value or <paramref name="nothing"/> to "Nothing"</returns>
+		public static IMaybe<TResult> Map<T, TResult>(this IMaybe<T> maybe, Func<T, IMaybe<TResult>> just, Func<IMaybe<TResult>> nothing)
+			where T : class
+			where TResult : class
+		{
+			return maybe.Bind(just).Default(nothing);
+		}
+
+		/// <summary>
+		/// Generalized mapping operator for the Maybe Monad. It unwraps the value, applies the computation <paramref name="just"/>
+		/// or <paramref name="nothing"/> to that current value and returns the resulting IMaybe.
+		/// The <paramref name="just"/> function is only called if the current instance has a value, otherwise <paramref name="nothing"/>
+		/// is called.
 		/// 
 		/// This version of the <see cref="IMaybe{T}.Map{TResult}(Func{T, IMaybe{TResult}}, Func{IMaybe{TResult}})"/> method works
 		/// with "degenerate" functions that don't return monadic types. The method ensures that the results of the mapping
@@ -24,18 +38,6 @@ namespace MaybeSharp
 			where TResult : class
 		{
 			return maybe.Map(Lift(func), Lift(nothing));
-		}
-
-		/// <summary>
-		/// This is the implementation of the canonical Monad "bind" operator. It applies the given function to the monadic variable
-		/// and returns the result. If this is a "Nothing", then the binding operation has essentially no effect.
-		/// </summary>
-		/// <returns>The result of applying the binding <paramref name="func"/> to the monadic variable</returns>
-		public static IMaybe<TResult> Bind<T, TResult>(this IMaybe<T> maybe, Func<T, IMaybe<TResult>> func)
-			where T : class
-			where TResult : class
-		{
-			return maybe.Map(func, NoOpTransform<TResult>);
 		}
 
 		/// <summary>
@@ -61,7 +63,7 @@ namespace MaybeSharp
 		public static IMaybe<T> Default<T>(this IMaybe<T> maybe, IMaybe<T> defaultValue)
 			where T : class
 		{
-			return maybe.Map(v => Maybe.Of(v), () => defaultValue);
+			return maybe.Default(() => defaultValue);
 		}
 
 		/// <summary>
@@ -139,7 +141,7 @@ namespace MaybeSharp
 			return v =>
 			{
 				action(v);
-				return Maybe.Nothing<T>();
+				return Maybe.Of(v);
 			};
 		}
 

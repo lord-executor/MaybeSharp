@@ -9,14 +9,18 @@ namespace MaybeSharp
 	public interface IMaybe<T> where T : class
 	{
 		/// <summary>
-		/// Generalized mapping operator for the Maybe Monad. It unwraps the value, applies the computation <paramref name="just"/>
-		/// or <paramref name="nothing"/> to that current value and returns the resulting IMaybe.
-		/// The <paramref name="just"/> function is only called if the current instance has a value, otherwise <paramref name="nothing"/>
-		/// is called.
+		/// This is the implementation of the canonical Monad "bind" operator. It applies the given function to the monadic variable
+		/// and returns the result. If this is a "Nothing", then the binding operation has essentially no effect.
 		/// </summary>
-		/// <returns>The result of applying <paramref name="just"/> to the unwrapped value or <paramref name="nothing"/> to "Nothing"</returns>
-		IMaybe<TResult> Map<TResult>(Func<T, IMaybe<TResult>> just, Func<IMaybe<TResult>> nothing) where TResult : class;
-		
+		/// <returns>The result of applying the binding <paramref name="func"/> to the monadic variable</returns>
+		IMaybe<TResult> Bind<TResult>(Func<T, IMaybe<TResult>> just) where TResult : class;
+
+		/// <summary>
+		/// Maps any "Nothing" to the given <paramref name="defaultValue"/>.
+		/// </summary>
+		/// <returns>A new <see cref="IMaybe{T}"/> where "Nothing" has been mapped to the result of the a default value function</returns>
+		IMaybe<T> Default(Func<IMaybe<T>> defaultValue);
+
 		/// <summary>
 		/// Unwraps and returns the underlying value, bringing it back into the world of nulls. A <paramref name="defaultValue"/> can
 		/// be provided that will be returned if the current instance is "Nothing".
