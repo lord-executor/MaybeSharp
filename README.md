@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/lord-executor/MaybeSharp.svg?branch=master)](https://travis-ci.org/lord-executor/MaybeSharp)
 
 # Overview
 This is a C# implementation of the "Maybe" monad concept from functional programming. If you don't know yet what a monad is or what the maybe monad is, have a look at some of the links at the bottom.
