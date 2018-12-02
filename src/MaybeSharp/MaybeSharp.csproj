@@ -8,7 +8,7 @@
     <RepositoryType>git</RepositoryType>
     <Company />
     <Authors>Lukas Angerer</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
 </Project>

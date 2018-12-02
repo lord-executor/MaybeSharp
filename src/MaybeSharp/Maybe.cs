@@ -74,6 +74,17 @@ namespace MaybeSharp
 				return _value;
 			}
 
+			public override bool Equals(object obj)
+			{
+				var other = obj as JustImpl<T>;
+				return other != null && _value.Equals(other._value);
+			}
+
+			public override int GetHashCode()
+			{
+				return _value.GetHashCode();
+			}
+
 			public override string ToString()
 			{
 				return $"Just<{typeof(T).Name}> \"{_value}\"";
@@ -103,6 +114,17 @@ namespace MaybeSharp
 			public T Extract(T defaultValue)
 			{
 				return defaultValue;
+			}
+
+			public override bool Equals(object obj)
+			{
+				var other = obj as NothingImpl<T>;
+				return other != null;
+			}
+
+			public override int GetHashCode()
+			{
+				return base.GetHashCode();
 			}
 
 			public override string ToString()
