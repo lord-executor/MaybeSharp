@@ -3,6 +3,31 @@
 # Overview
 This is a C# implementation of the "Maybe" monad concept from functional programming. If you don't know yet what a monad is or what the maybe monad is, have a look at some of the links at the bottom.
 
+The ultimate goal of this implementation of the Maybe monad is to allow developers to be more explicit when defining APIs. This declarative approach makes it clear to the client when (and how) he can safely pass "null-ish" values and when he has to deal with the possibility of missing data in return values.
+
+When a method argument is _expected_ to be null in certain situations, use `IMaybe<T>`:
+```cs
+void RegisterWeddingAttendee(Person person, IMaybe<Person> companion)
+{
+    // We always expect a valid (non-null) "person" to be passed but the person
+    // _may_ bring a "companion". It is clear from the method signature that we
+    // can pass Maybe.Nothing<Person>() as the companion.
+}
+```
+
+When a method cannot guarantee to return a proper value for all possible inputs, use `IMaybe<T>`:
+```cs
+IMaybe<Person> GetFirstBornSon(Person person)
+{
+    // Obviously, not every "person" has a first-born son. A person can have no children or no
+    // male children. Returning a maybe makes it clear to the caller that he has to deal with
+    // that possiblity.
+    return Maybe.Of(person.Children.FirstOrDefault(c => c.Gender == Gender.Male));
+}
+```
+
+The API around `IMaybe<T>` is just there to make it easier to write readable code around the eventuality of missing values and reduce the number of "if" statements.
+
 There are many approaches to implement a functional concept like the maybe monad in an object oriented language. This implementation has some key distinguishing features over some of the alternatives you might find:
 * It has a convenient API that does not require a lot of know-how to use properly.
 * It is actually useful and can be used in production applications to help deal with the uncertainties of null values.
@@ -10,12 +35,12 @@ There are many approaches to implement a functional concept like the maybe monad
 * Fully unit tested (100% code coverage).
 
 Note to pedants (like myself):
-Yes, I am aware that with this implementation it is possible to pass a null value to a method that expects an instance of `IMaybe<T>`. The point of this API is to make null handling more explicit, not idiot proof - there is always a bigger idiot, for example the developer that decides to use null as the value for an `IMaybe<T>`.
+Yes, I am aware that with this implementation it is possible to pass a null value to a method that expects an instance of `IMaybe<T>`. The point of this API is to make null handling more explicit, not idiot proof - there is always a bigger idiot; for example the developer that decides to use null as the value for an `IMaybe<T>`.
 
 
 
 # Using the Maybe Monad
-Rule #1: Never ever assign null to a variable or parameter of type `IMaybe<T>` and never ever leave a variable of that type unassigned! Instead of assigning null, you should **always** initialize maybes with a proper value using `Maybe.Of(value)` or `Maybe.Nothing<T>()` if you don't have a value.
+Rule #1: **Never ever** assign null to a variable or parameter of type `IMaybe<T>` and never ever leave a variable of that type unassigned! Instead of assigning null, you should **always** initialize maybes with a proper value using `Maybe.Of(value)` or `Maybe.Nothing<T>()` if you don't have a value.
 
 That's it. Besides this one and really, really important rule there is not much you have to look out for.
 
