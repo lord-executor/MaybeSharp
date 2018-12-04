@@ -99,19 +99,39 @@ namespace MaybeSharp
 		public static void Do<T>(this IMaybe<T> maybe, Action<T> just)
 			where T : class
 		{
-			maybe.Map(Void(just), NoOpTransform<T>);
+			maybe.Map(Void(just), NoOpNothing<T>);
+		}
+
+		/// <summary>
+		/// The Do method is the Maybe Monad equivalent of an if statement. It relies on side-effects of the given
+		/// <paramref name="nothing"/> action and is a concession to an OO language where side-effects are omnipresent.
+		/// This overload only accepts an action for the "Nothing" case that is executed if the instance is "Nothing".
+		/// </summary>
+		public static void Do<T>(this IMaybe<T> maybe, Action nothing)
+			where T : class
+		{
+			maybe.Map(NoOpJust, Void<T>(nothing));
 		}
 
 
 		#region Private Type Conversion Functions
 
 		/// <summary>
-		/// Mapping function for "Nothing" - converting from one type of "Nothing" to another.
+		/// Simple no-op transformation for "Nothing"
 		/// </summary>
-		private static IMaybe<TResult> NoOpTransform<TResult>()
-			where TResult : class
+		private static IMaybe<T> NoOpNothing<T>()
+			where T : class
 		{
-			return Maybe.Nothing<TResult>();
+			return Maybe.Nothing<T>();
+		}
+
+		/// <summary>
+		/// Simple no-op transformation for "Just"
+		/// </summary>
+		private static IMaybe<T> NoOpJust<T>(T value)
+			where T : class
+		{
+			return Maybe.Of(value);
 		}
 
 		/// <summary>
@@ -141,7 +161,7 @@ namespace MaybeSharp
 			return v =>
 			{
 				action(v);
-				return Maybe.Of(v);
+				return NoOpJust(v);
 			};
 		}
 
@@ -154,7 +174,7 @@ namespace MaybeSharp
 			return () =>
 			{
 				action();
-				return Maybe.Nothing<T>();
+				return NoOpNothing<T>();
 			};
 		}
 

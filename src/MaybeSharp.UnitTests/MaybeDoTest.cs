@@ -7,7 +7,7 @@ namespace MaybeSharp.UnitTests
 	public class MaybeDoTest
 	{
 		[Test]
-		public void Do__OnNothing__DoesNotCallJustAction()
+		public void Do__OnNothingOnlyIf__DoesNotCallJustAction()
 		{
 			var maybe = Maybe.Of<DemoType>(null);
 			var sentry = false;
@@ -24,6 +24,17 @@ namespace MaybeSharp.UnitTests
 			var sentry = false;
 
 			maybe.Do(v => { }, () => { sentry = true; });
+
+			sentry.Should().BeTrue();
+		}
+
+		[Test]
+		public void Do__OnNothingOnlyElse__CallsNothingAction()
+		{
+			var maybe = Maybe.Of<DemoType>(null);
+			var sentry = false;
+
+			maybe.Do(() => { sentry = true; });
 
 			sentry.Should().BeTrue();
 		}
