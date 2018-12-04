@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/lord-executor/MaybeSharp.svg?branch=master)](https://travis-ci.org/lord-executor/MaybeSharp)
+
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/lord-executor/MaybeSharp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/lord-executor/MaybeSharp.svg?branch=master)](https://travis-ci.org/lord-executor/MaybeSharp) [![Nuget](https://img.shields.io/nuget/v/MaybeSharp.svg)](https://www.nuget.org/packages/MaybeSharp/)
+
 
 # Overview
 This is a C# implementation of the "Maybe" monad concept from functional programming. If you don't know yet what a monad is or what the maybe monad is, have a look at some of the links at the bottom.
@@ -156,3 +158,12 @@ TODO: More details
 * [Monads explained in C#](https://mikhail.io/2016/01/monads-explained-in-csharp/), Mikhail Shilkov (Blog)
 * [Monads explained in C# (again)](https://mikhail.io/2018/07/monads-explained-in-csharp-again/), Mikhail Shilkov (Blog)
 * [Monads in C#-5. Maybe ;)](http://mikehadlow.blogspot.com/2011/01/monads-in-c-5-maybe.html), Code Rant
+
+## Other C# Implementations of Maybe
+Just in case you don't like this one.
+
+* [Yortw/Maybe.Sharp](https://github.com/Yortw/Maybe.Sharp)
+* [kmcginnes/SpicyTaco.Maybe](https://github.com/kmcginnes/SpicyTaco.Maybe)
+* [AndreyTsvetkov/Functional.Maybe](https://github.com/AndreyTsvetkov/Functional.Maybe)
+* [hazzik/Maybe](https://github.com/hazzik/Maybe)
+* ... and plenty more
