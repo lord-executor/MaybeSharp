@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MaybeSharp.UnitTests
 {
-	class DemoType
+	public class DemoType
 	{
 		public string Name { get; } = "DemoType";
 		public object Optional { get; }

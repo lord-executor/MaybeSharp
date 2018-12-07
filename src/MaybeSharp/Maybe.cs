@@ -74,10 +74,15 @@ namespace MaybeSharp
 				return _value;
 			}
 
-			public override bool Equals(object obj)
+			public bool Equals(IMaybe<T> other)
 			{
-				var other = obj as JustImpl<T>;
-				return other != null && _value.Equals(other._value);
+				var just = other as JustImpl<T>;
+				return just != null && _value.Equals(just._value);
+			}
+
+			public override bool Equals(object other)
+			{
+				return Equals(other as IMaybe<T>);
 			}
 
 			public override int GetHashCode()
@@ -116,10 +121,15 @@ namespace MaybeSharp
 				return defaultValue;
 			}
 
-			public override bool Equals(object obj)
+			public bool Equals(IMaybe<T> other)
 			{
-				var other = obj as NothingImpl<T>;
-				return other != null;
+				var nothing = other as NothingImpl<T>;
+				return nothing != null;
+			}
+
+			public override bool Equals(object other)
+			{
+				return Equals(other as IMaybe<T>);
 			}
 
 			public override int GetHashCode()

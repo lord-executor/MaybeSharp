@@ -6,7 +6,7 @@ namespace MaybeSharp
 	/// This is the minimal Monad interface. Additional "convenience" functionality is provided by the <see cref="MaybeExtensions"/>
 	/// </summary>
 	/// <typeparam name="T">Underlying (nullable / reference) type</typeparam>
-	public interface IMaybe<T> where T : class
+	public interface IMaybe<T> : IEquatable<IMaybe<T>> where T : class
 	{
 		/// <summary>
 		/// This is the implementation of the canonical Monad "bind" operator. It applies the given function to the monadic variable
