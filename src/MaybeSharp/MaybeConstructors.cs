@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MaybeSharp
@@ -30,6 +31,16 @@ namespace MaybeSharp
 		}
 
 		/// <summary>
+		/// Maybe version of <see cref="Enumerable.FirstOrDefault{TSource}(IEnumerable{TSource})"/>.
+		/// </summary>
+		/// <returns>Maybe of the first element in the collection that satisfies the <paramref name="predicate"/>.</returns>
+		public static IMaybe<T> MaybeFirst<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+			where T : class
+		{
+			return enumerable.FirstOrDefault(predicate).ToMaybe();
+		}
+
+		/// <summary>
 		/// Maybe version of <see cref="Enumerable.LastOrDefault{TSource}(IEnumerable{TSource})"/>.
 		/// </summary>
 		/// <returns>Maybe of the last element in the collection.</returns>
@@ -40,6 +51,16 @@ namespace MaybeSharp
 		}
 
 		/// <summary>
+		/// Maybe version of <see cref="Enumerable.LastOrDefault{TSource}(IEnumerable{TSource})"/>.
+		/// </summary>
+		/// <returns>Maybe of the last element in the collection that satisfies the <paramref name="predicate"/>.</returns>
+		public static IMaybe<T> MaybeLast<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+			where T : class
+		{
+			return enumerable.LastOrDefault(predicate).ToMaybe();
+		}
+
+		/// <summary>
 		/// Maybe version of <see cref="Enumerable.SingleOrDefault{TSource}(IEnumerable{TSource})"/>.
 		/// </summary>
 		/// <returns>Maybe of the only element in the collection.</returns>
@@ -47,6 +68,16 @@ namespace MaybeSharp
 			where T : class
 		{
 			return enumerable.SingleOrDefault().ToMaybe();
+		}
+
+		/// <summary>
+		/// Maybe version of <see cref="Enumerable.SingleOrDefault{TSource}(IEnumerable{TSource})"/>.
+		/// </summary>
+		/// <returns>Maybe of the only element in the collection that satisfies the <paramref name="predicate"/>.</returns>
+		public static IMaybe<T> MaybeSingle<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
+			where T : class
+		{
+			return enumerable.SingleOrDefault(predicate).ToMaybe();
 		}
 	}
 }

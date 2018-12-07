@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MaybeSharp.UnitTests
+﻿namespace MaybeSharp.UnitTests
 {
 	public class DemoType
 	{
 		public string Name { get; } = "DemoType";
+		public int Index { get; }
 		public object Optional { get; }
 
 		public DemoType() { }
@@ -14,6 +11,12 @@ namespace MaybeSharp.UnitTests
 		public DemoType(string name)
 		{
 			Name = name;
+		}
+
+		public DemoType(string name, int index)
+			: this(name)
+		{
+			Index = index;
 		}
 
 		public override string ToString()
