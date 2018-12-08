@@ -7,6 +7,7 @@
     <RepositoryUrl>https://github.com/lord-executor/MaybeSharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Company />
+    <PackageDescription>See the project's Github page under https://github.com/lord-executor/MaybeSharp </PackageDescription>
     <Authors>Lukas Angerer</Authors>
     <Version>1.2.1</Version>
     <AssemblyVersion>1.2.1.0</AssemblyVersion>
