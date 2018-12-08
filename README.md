@@ -24,7 +24,7 @@ IMaybe<Person> GetFirstBornSon(Person person)
     // Obviously, not every "person" has a first-born son. A person can have no children or no
     // male children. Returning a maybe makes it clear to the caller that he has to deal with
     // that possiblity.
-    return Maybe.Of(person.Children.FirstOrDefault(c => c.Gender == Gender.Male));
+    return person.Children.FirstOrDefault(c => c.Gender == Gender.Male).ToMaybe();
 }
 ```
 
@@ -57,20 +57,20 @@ var maybeNothing = Maybe.Of<object>(null); // this is a "Nothing"
 
 Once you have a maybe instance you can start using its **bind** operator that is functionally very similar to the `?.` (null-conditional) operator in C#. It can be used to safely access properties and methods of an object.
 ```cs
-IMaybe<string> name = Maybe.Of(person).Bind(p => p.Name);
+IMaybe<string> name = person.ToMaybe().Bind(p => p.Name);
 ```
 
 Binding only has an effect on "Just" values, a "Nothing" will always remain nothing. That is where the `Default` method comes in handy:
 ```cs
 var dummyPerson = new Person("John");
-IMaybe<string> name = Maybe.Of(person).Default(dummyPerson).Bind(p => p.Name);
+IMaybe<string> name = person.ToMaybe().Default(dummyPerson).Bind(p => p.Name);
 // if person was null, then name is now "Just 'John'"
 // if person was not null, then name is now either "Nothing" (person.Name was null) or "Just person.Name"
 ```
 
 Eventually, most code using the maybe monad will have to interact with "old school" C# code that doesn't work with maybes. For that purpose, the underlying monad value can be extracted with
 ```cs
-IMaybe<Person> m = Maybe.Of(person).Bind(p => p.Spouse);
+IMaybe<Person> m = person.ToMaybe().Bind(p => p.Spouse);
 Person spouse = m.Extract(); // spouse is now back in the world of nulls
 var dummy = new Person("dummy");
 spouse = m.Extract(dummy); // spouse is now going to be dummy if the original person didn't have a spouse
