@@ -64,7 +64,7 @@ namespace MaybeSharp
 				return just(_value);
 			}
 
-			public IMaybe<T> Default(Func<IMaybe<T>> defaultValue)
+			public IMaybe<T> Default(Func<IMaybe<T>> defaultValue = null)
 			{
 				return this;
 			}
@@ -111,7 +111,7 @@ namespace MaybeSharp
 				return Nothing<TResult>();
 			}
 
-			public IMaybe<T> Default(Func<IMaybe<T>> defaultValue)
+			public IMaybe<T> Default(Func<IMaybe<T>> defaultValue = null)
 			{
 				return defaultValue();
 			}
