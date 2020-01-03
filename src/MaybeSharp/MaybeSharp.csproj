@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;net46</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net48</TargetFrameworks>
     <PackageProjectUrl>https://github.com/lord-executor/MaybeSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/lord-executor/MaybeSharp/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/lord-executor/MaybeSharp</RepositoryUrl>

@@ -1,9 +1,9 @@
 language: csharp
 mono: none
-dotnet: 2.1.500
+dotnet: 3.1
 solution: src/MaybeSharp.sln
 script:
   - dotnet restore src/MaybeSharp.sln
-  - dotnet build src/MaybeSharp.sln -f netcoreapp2.1
-  - dotnet test src/MaybeSharp.sln -f netcoreapp2.1
-  - dotnet test src/MaybeSharp.sln -f netcoreapp2.1 /p:CollectCoverage=true /p:Include="[MaybeSharp]*"
+  - dotnet build src/MaybeSharp.sln -f netcoreapp3.1
+  - dotnet test src/MaybeSharp.sln -f netcoreapp3.1
+  - dotnet test src/MaybeSharp.sln -f netcoreapp3.1 /p:CollectCoverage=true /p:Include="[MaybeSharp]*"
