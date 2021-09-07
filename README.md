@@ -1,5 +1,5 @@
 
-[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/lord-executor/MaybeSharp/blob/master/LICENSE) [![Build Status](https://travis-ci.org/lord-executor/MaybeSharp.svg?branch=master)](https://travis-ci.org/lord-executor/MaybeSharp) [![Nuget](https://img.shields.io/nuget/v/MaybeSharp.svg)](https://www.nuget.org/packages/MaybeSharp/)
+[![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/lord-executor/MaybeSharp/blob/master/LICENSE) [![Build Status](https://app.travis-ci.com/lord-executor/MaybeSharp.svg?branch=master)](https://app.travis-ci.com/lord-executor/MaybeSharp) [![Nuget](https://img.shields.io/nuget/v/MaybeSharp.svg)](https://www.nuget.org/packages/MaybeSharp/)
 
 
 # Overview
