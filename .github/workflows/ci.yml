@@ -1,13 +1,30 @@
-name: .NET 6 CI
-on: [push]
+name: .NET Build
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: Build and Test (with Coverage)
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '6.0.x'
-      - run: dotnet build src/MaybeSharp.sln
-      - run: dotnet test src/MaybeSharp.sln -f net6 /p:CollectCoverage=true /p:Include="[MaybeSharp]*"
+    build:
+
+        runs-on: ubuntu-latest
+
+        steps:
+            # Checkout the repository
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            # Setup .NET Core SDK
+            -   name: Setup .NET
+                uses: actions/setup-dotnet@v4
+                with:
+                    dotnet-version: 9.0.x
+
+            -   name: Restore dependencies
+                run: dotnet restore src/MaybeSharp.sln
+            -   name: Build
+                run: dotnet build --no-restore src/MaybeSharp.sln
+            -   name: Test
+                run: dotnet test --no-build src/MaybeSharp.sln -f net9.0 /p:CollectCoverage=true /p:Include="[MaybeSharp]*"
