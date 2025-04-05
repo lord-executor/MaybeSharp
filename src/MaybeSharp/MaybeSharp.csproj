@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+        <Nullable>enable</Nullable>
         <PackageProjectUrl>https://github.com/lord-executor/MaybeSharp</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/lord-executor/MaybeSharp/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/lord-executor/MaybeSharp</RepositoryUrl>
