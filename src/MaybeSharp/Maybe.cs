@@ -82,7 +82,7 @@ public static class Maybe
     /// <summary>
     /// Internal implementation of the "Nothing" concept
     /// </summary>
-    private record NothingImpl<T> : IMaybe<T>
+    private sealed record NothingImpl<T> : IMaybe<T>
         where T : notnull
     {
 
